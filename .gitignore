@@ -26,3 +26,13 @@ dist-ssr
 # Environment variables
 .env
 .env.*
+
+# Supabase temp files
+supabase/.temp/
+
+# Bun lockfiles (using npm)
+bun.lock
+bun.lockb
+
+# GitHub Pages (using Vercel)
+CNAME
