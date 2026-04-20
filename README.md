@@ -14,13 +14,13 @@
 <br/>
 
 [![🌐 Portfolio](https://img.shields.io/badge/🌐_Portfolio-anshguptaa.in-2DB8A1?style=for-the-badge)](https://anshguptaa.in)
-[![🚀 Live Demo](https://img.shields.io/badge/🚀_Live_Demo-smart--document--insight.lovable.app-blueviolet?style=for-the-badge)](https://smart-document-insight.lovable.app)
+[![🚀 Live Demo](https://img.shields.io/badge/🚀_Live_Demo-anshguptaa.in-blueviolet?style=for-the-badge)](https://anshguptaa.in)
 
 <br/>
 
 **An enterprise-grade AI document intelligence platform that eliminates hallucinations through verified, evidence-backed retrieval and contextual compression.**
 
-🔗 **[Try the Live Demo →](https://smart-document-insight.lovable.app)** &nbsp;·&nbsp; 📄 **[Project Report →](https://smart-document-insight.lovable.app/project-report)**
+🔗 **[Try the Live Demo →](https://anshguptaa.in)** &nbsp;·&nbsp; 📄 **[Project Report →](https://anshguptaa.in/project-report)**
 
 <br/>
 
@@ -332,7 +332,7 @@ GhostCut runs on cloud infrastructure — no local API keys or database setup re
 
 🦸 **We are Team Avengers — Building the Future of AI Trust**
 
-🌐 [**anshguptaa.in**](https://anshguptaa.in) &nbsp;·&nbsp; 🚀 [**Live Demo**](https://smart-document-insight.lovable.app)
+🌐 [**anshguptaa.in**](https://anshguptaa.in) &nbsp;·&nbsp; 🚀 [**Live Demo**](https://anshguptaa.in)
 
 </div>
 
