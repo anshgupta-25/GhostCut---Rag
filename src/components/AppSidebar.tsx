@@ -7,7 +7,7 @@ import { useSidebarState } from "@/hooks/useSidebarState";
 import { GhostCutLogo } from "@/components/GhostCutLogo";
 
 const navItems = [
-  { title: "Compression Studio", url: "/", icon: FileText },
+  { title: "Compression Studio", url: "/dashboard", icon: FileText },
   { title: "Retrieval Audit Lab", url: "/retrieval-audit", icon: Search },
   { title: "Intelligence Dashboard", url: "/analytics", icon: BarChart3 },
 ];
@@ -43,13 +43,27 @@ export function AppSidebar() {
         )}
       </div>
 
+      {/* Toggle collapse button */}
+      <button
+        onClick={toggle}
+        className="absolute top-5 right-3 p-1 rounded text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors"
+        aria-label="Toggle sidebar"
+      >
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {collapsed
+            ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          }
+        </svg>
+      </button>
+
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-hidden">
         {navItems.map((item) => (
           <NavLink
             key={item.url}
             to={item.url}
-            end={item.url === "/"}
+            end={item.url === "/dashboard"}
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 whitespace-nowrap overflow-hidden"
             activeClassName="bg-sidebar-accent text-sidebar-accent-foreground shadow-glow"
           >
@@ -104,7 +118,6 @@ export function AppSidebar() {
             )}
           </NavLink>
         )}
-
       </div>
     </aside>
   );
