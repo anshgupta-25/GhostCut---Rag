@@ -191,7 +191,7 @@ export default function Landing() {
               }}
               style={{ transformStyle: "preserve-3d", perspective: 600 }}
             >
-              <GhostCutLogo size={100} />
+              <GhostCutLogo size={90} />
             </motion.div>
 
             {/* Badge */}
@@ -210,7 +210,7 @@ export default function Landing() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="mt-8 text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.05] tracking-tight"
+              className="mt-8 text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight"
             >
               Where Evidence
               <br />
@@ -222,7 +222,7 @@ export default function Landing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.7 }}
-              className="mt-8 max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed"
+              className="mt-8 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground leading-relaxed"
             >
               GhostCut transforms how teams analyze documents. AI-powered
               compression, retrieval auditing, and verified analysis — all with
