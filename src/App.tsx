@@ -10,6 +10,7 @@ import { AuditSearchProvider } from "@/hooks/useAuditSearch";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { AuditMode } from "@/components/AuditMode";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import DocumentCompression from "./pages/DocumentCompression";
 import RetrievalAudit from "./pages/RetrievalAudit";
 import AnalyticsDashboard from "./pages/AnalyticsDashboard";
@@ -31,6 +32,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <SidebarStateProvider>
           <AuditSearchProvider>
