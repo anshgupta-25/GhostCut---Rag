@@ -182,7 +182,7 @@ export default function About() {
 
         <motion.div
           style={{ y: heroY, scale: heroScale, opacity: heroOpacity }}
-          className="relative max-w-6xl mx-auto px-6 py-24 md:py-36 w-full"
+          className="relative max-w-6xl mx-auto px-6 pt-12 pb-24 md:pt-20 md:pb-36 w-full"
         >
           <div className="flex flex-col items-center text-center">
             {/* 3D spinning logo */}

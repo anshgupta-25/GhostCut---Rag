@@ -175,7 +175,7 @@ export default function Landing() {
 
         <motion.div
           style={{ y: heroY, scale: heroScale, opacity: heroOpacity }}
-          className="relative max-w-6xl mx-auto px-6 py-32 md:py-40 w-full z-10"
+          className="relative max-w-6xl mx-auto px-6 pt-12 pb-32 md:pt-20 md:pb-40 w-full z-10"
         >
           <div className="flex flex-col items-center text-center">
             {/* Logo with 3D spin entry */}
