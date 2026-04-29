@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1019903191013",
+    "project_id": "ghostcut-ae869",
+    "storage_bucket": "ghostcut-ae869.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019903191013:android:9fae3f3504d2508514710c",
+        "android_client_info": {
+          "package_name": "com.ghostcut.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019903191013-gudui8s2vf4rv4fdlp5peog1fn2pktkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhATYJLjtzPO141JL_Qn-SbHpPfl4KAU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019903191013-gudui8s2vf4rv4fdlp5peog1fn2pktkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
