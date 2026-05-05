@@ -6,51 +6,85 @@
 const getApiKey = () => import.meta.env.VITE_GEMINI_API_KEY;
 
 async function callGemini(systemPrompt: string, userPrompt: string): Promise<any> {
-  // Both keys for automatic rotation
   const keys = [
-    import.meta.env.VITE_GEMINI_API_KEY,
-    "AIzaSyDEP08UYvaZGVpfaoeTUUuthH0o0kiv78w",
+    "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",
+    import.meta.env.VITE_NVIDIA_API_KEY,
+    import.meta.env.VITE_GEMINI_API_KEY, // User might have put NVIDIA key here
   ].filter(Boolean);
 
-  if (keys.length === 0) throw new Error("No Gemini API keys configured");
+  if (keys.length === 0) throw new Error("No API keys configured");
 
-  const model = "gemini-2.5-flash";
-  const body = JSON.stringify({
-    system_instruction: { parts: [{ text: systemPrompt + "\n\nReturn ONLY valid JSON. No markdown, no backticks." }] },
-    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-    generationConfig: { responseMimeType: "application/json", temperature: 0.2 },
-  });
+  const url = "/api/nvidia/v1/chat/completions";
+  
+  // Bulletproof fallback: Try the best model, if degraded/404, fallback to faster/simpler one
+  const models = [
+    "meta/llama-3.1-70b-instruct", 
+    "meta/llama-3.1-8b-instruct"
+  ];
 
   let lastError = "";
-  for (const key of keys) {
-    // Each key gets 2 retry attempts for 503
-    for (let attempt = 0; attempt < 2; attempt++) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-      const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+  
+  for (const model of models) {
+    const body = JSON.stringify({
+      model: model,
+      messages: [
+        { role: "system", content: systemPrompt + "\n\nReturn ONLY valid JSON. No markdown, no formatting blocks like ```json." },
+        { role: "user", content: userPrompt }
+      ],
+      temperature: 0.2,
+      max_tokens: 4096,
+    });
 
-      if (res.status === 503) {
-        console.log(`Gemini overloaded, retrying in 2s...`);
-        await new Promise(r => setTimeout(r, 2000));
-        continue;
-      }
-      if (res.status === 429 || res.status === 403) {
-        console.log(`Key ${key.slice(-6)} got ${res.status}, trying next key...`);
-        lastError = `Key ...${key.slice(-6)}: ${res.status}`;
-        break; // try next key
-      }
-      if (!res.ok) {
-        const t = await res.text();
-        lastError = `${res.status}: ${t.slice(0, 200)}`;
-        break;
-      }
+    for (const key of keys) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        const res = await fetch(url, { 
+          method: "POST", 
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${key}`
+          }, 
+          body 
+        });
 
-      const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!text) { lastError = "Empty response"; break; }
-      return JSON.parse(text);
+        if (res.status === 503 || res.status === 429) {
+          console.log(`NVIDIA API overloaded (model: ${model}), retrying...`);
+          await new Promise(r => setTimeout(r, 2000));
+          continue;
+        }
+        if (res.status === 404) {
+          console.log(`Model ${model} not available on this account, trying next model...`);
+          lastError = `Model ${model} is not available for this key`;
+          break; // Try next model immediately
+        }
+        if (res.status === 401 || res.status === 403) {
+          console.log(`Key ${key.slice(-6)} got ${res.status}, trying next key...`);
+          lastError = `Key ...${key.slice(-6)}: ${res.status}`;
+          break; // Try next key immediately
+        }
+        if (!res.ok) {
+          const t = await res.text();
+          lastError = `${res.status}: ${t.slice(0, 200)}`;
+          break; // Try next key
+        }
+
+        const data = await res.json();
+        let text = data?.choices?.[0]?.message?.content;
+        if (!text) { lastError = "Empty response"; break; }
+        
+        // Strip markdown wrappers if they exist
+        text = text.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
+        
+        try {
+          return JSON.parse(text);
+        } catch (err) {
+          console.error("JSON Parse error:", text);
+          lastError = "Failed to parse JSON response from " + model;
+          break; // Try next key/model
+        }
+      }
     }
   }
-  throw new Error("All API keys exhausted. " + lastError);
+  throw new Error("All API keys and fallback models exhausted. Last error: " + lastError);
 }
 
 /* ── Chunking ── */
