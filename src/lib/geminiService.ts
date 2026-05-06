@@ -16,9 +16,9 @@ async function callGemini(systemPrompt: string, userPrompt: string): Promise<any
 
   const url = "/api/nvidia/v1/chat/completions";
   
-  // Bulletproof fallback: Try the best model, if degraded/404, fallback to faster/simpler one
+  // Bulletproof fallback: We MUST use the absolute fastest model first. 
+  // If we use 70b, it takes more than 10 seconds to respond, which causes the Vercel proxy to instantly timeout and freeze!
   const models = [
-    "meta/llama-3.1-70b-instruct", 
     "meta/llama-3.1-8b-instruct"
   ];
 
